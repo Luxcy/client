@@ -1,0 +1,97 @@
+body{
+	font-weight: 500;
+	font-size: 1.05em;
+	font-family: "Microsoft YaHei","ËÎÌו","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif, FreeSans, Arimo;
+}
+a{color: #2fa0ec;outline: none;text-decoration: none;}
+a:hover,a:focus{color:#74777b;text-decoration: none;}
+table {
+  border-collapse: collapse;
+}
+th, td {
+  padding: 0.3em 1em;
+} 
+.tab{
+    margin-top: 30px;
+}
+.tab .nav-tabs{
+    border:none;
+    border-bottom: 1px solid #e4e4e4;
+}
+.nav-tabs li a{
+    padding: 15px 40px;
+    border:1px solid #ededed;
+    border-top: 2px solid #ededed;
+    border-right: 0px none;
+    background: #f5f5f5;
+    color:#fff;
+    border-radius: 0px;
+    margin-right: 0px;
+    font-weight: bold;
+    transition: all 0.3s ease-in 0s;
+}
+.nav-tabs li a:hover{
+    border-bottom-color: #ededed;
+    border-right: 0px none;
+    background: #00b0ad;
+    color: #fff;
+}
+.nav-tabs li a i{
+    display: inline-block;
+    text-align: center;
+    margin-right:10px;
+}
+.nav-tabs li:last-child{
+    border-right:1px solid #ededed;
+}
+.nav-tabs li.active a,
+.nav-tabs li.active a:focus,
+.nav-tabs li.active a:hover{
+    border-top: 3px solid #f5f5f5;
+    border-right: 1px solid #d3d3d3;
+    margin-top: -15px;
+    color: #444;
+    padding: 22px 40px;
+}
+.tab .tab-content{
+    padding: 20px;
+    line-height: 22px;
+}
+.tab .tab-content h3{
+    margin-top: 0;
+}
+@media only screen and (max-width: 767px){
+    .nav-tabs li{
+        width:100%;
+        margin-bottom: 10px;
+    }
+    .nav-tabs li a{
+        padding: 15px;
+    }
+    .nav-tabs li.active a,
+    .nav-tabs li.active a:focus,
+    .nav-tabs li.active a:hover{
+        padding: 15px;
+        margin-top: 0;
+    }
+}
+.span-6{
+    font-size:15px;
+}
+.background-light{
+    font-size:20px;
+    text-align:center;
+    text-align:justify;
+    text-justify:distribute-all-lines;
+    text-align-last:justify
+}
+.datalist-1{
+    height:400x;
+    overflow:scroll;
+}
+.mtop-1{
+    background-color:#2fa0ec;
+    font-size:20px;
+    height:60px;
+    margin-bottom:10px;
+}
