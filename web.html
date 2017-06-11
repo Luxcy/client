@@ -53,21 +53,69 @@
           </tr>
           <tr>
             <td class="background-light">
-              <label for='date'>
-                <strong>时间</strong>
+              <label for='start_time'>
+                <strong>开始时间</strong>
               </label>
             </td>
             <td>
-            <select id='date' name="YYYY" onchange="YYYYMM(this.value)">
-              <option value="">年</option>
+              <select id='date' name="YYYY" onchange="YYYYMM(this.value)">
+              <option value="year">年</option>
             </select> 
-            <select id='date' name="MM" onchange="MMDD(this.value)">
-              <option value="">月</option>
+            
+             <select id='date' name="MM" onchange="MMDD(this.value)">
+              <option value="month">月</option>
             </select> 
-            <select id='date' name="DD">
-              <option value="">日</option>
-            </select></td>
+            
+             <select id='date' name="DD" onchange="DDHH(this.value)">
+              <option value="day">日</option>
+            </select>
+            
+             <select id='date' name="HH" onchange="HHMM(this.value)">
+              <option value="hour">时</option>
+            </select>
+            
+             <select id='date' name="MI" onchange="MMII(this.value)">
+              <option value="minute">分</option>
+            </select>
+            
+             <select id='date' name="SS" onchange="SSEE(this.value)">
+              <option value="second">秒</option>
+            </select>
+            </td>
           </tr>
+          <tr>
+            <td class="background-light">
+              <label for='end_time'>
+                <strong>结束时间</strong>
+              </label>
+            </td>
+            <td>
+             <select id='date' name="YYYY1" onchange="YYYYMM1(this.value)">
+              <option value="year">年</option>
+              </select>
+              
+             <select id='date' name="MM1" onchange="MMDD1(this.value)">
+              <option value="month">月</option>
+            </select> 
+            
+             <select id='date' name="DD1" onchange="DDHH1(this.value)">
+              <option value="day">日</option>
+            </select>  
+            
+             <select id='date' name="HH1" onchange="HHMM1(this.value)">
+              <option value="hour">时</option>
+            </select>   
+            
+             <select id='date' name="MI1" onchange="MMII1(this.value)">
+              <option value="minute">分</option>
+            </select>
+            
+            <select id='date' name="SS1" onchange="SSEE1(this.value)">
+              <option value="second">秒</option>
+            </select>
+            </td>
+          </tr>
+          
           <tr>
             <td></td>
             <td>
