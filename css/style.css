@@ -82,11 +82,11 @@ th, td {
     font-size:20px;
     text-align:center;
     text-align:justify;
-    text-justify:distribute-all-lines;
     text-align-last:justify
 }
 .datalist-1{
-    height:400x;
+    width:720px;
+    height:400px;
     overflow:scroll;
 }
 .mtop-1{
