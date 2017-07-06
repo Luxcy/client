@@ -1,15 +1,16 @@
 body{
-	font-weight: 500;
-	font-size: 1.05em;
-	font-family: "Microsoft YaHei","ËÎÌו","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif, FreeSans, Arimo;
+    font-weight: 500;
+    font-size: 1.05em;
+    font-family: "Microsoft YaHei","ËÎÌו","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif, FreeSans, Arimo;
+    background:#fff;
 }
 a{color: #2fa0ec;outline: none;text-decoration: none;}
 a:hover,a:focus{color:#74777b;text-decoration: none;}
 table {
-  border-collapse: collapse;
+    border-collapse: collapse;
 }
 th, td {
-  padding: 0.3em 1em;
+    padding: 0.3em 1em;
 } 
 .tab{
     margin-top: 30px;
@@ -87,7 +88,6 @@ th, td {
 .datalist-1{
     width:720px;
     height:400px;
-    overflow:scroll;
 }
 .mtop-1{
     background-color:#2fa0ec;

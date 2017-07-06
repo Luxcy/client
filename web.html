@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>date visualization</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
     <script src="js/jquery-2.1.1.min.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="js/select.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/jonthornton-jquery-timepicker/jquery.timepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/jonthornton-jquery-timepicker/jquery.timepicker.css" />
+    <script type="text/javascript" src="js/jonthornton-jquery-timepicker/lib/bootstrap-datepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/jonthornton-jquery-timepicker/lib/bootstrap-datepicker.css" />
+    <script type="text/javascript" src="js/jonthornton-jquery-timepicker/lib/site.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/jonthornton-jquery-timepicker/lib/site.css" />
+    <script src="http://jonthornton.github.io/Datepair.js/dist/datepair.js"></script>
+    <script src="http://jonthornton.github.io/Datepair.js/dist/jquery.datepair.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
   </head>
   <body>
     <!-- top of the paper -->
@@ -18,7 +25,7 @@
     </div>
     <!-- select of the paper -->
     <div class="date-mid-1">
-      <form class="form-horizontal" name="form1" method="post" action="download-1-eng.php" onsubmit="return Download.submit();">
+      <form class="form-horizontal" name="form1" method="" action="" onsubmit="">
         <table class="span-6" align="center">
           <tr>
             <td class="background-light">
@@ -27,35 +34,60 @@
               </label>
             </td>
             <td>
-              <select id='graph' name='graph'>
-                <option selected="selected" value='minute'>等值图</option>
-                <option value='second'>折线图</option>
+              <select id='graph' name='graph' onchange="Station_display(this.value)">
+                <option selected="selected" value='contour'>contour</option>
+                <option value='scatter'>scatter</option>
+              </select>
+            </td>
+          </tr>
+           <tr id="table_stations" style="display:none;">
+            <td class="background-light">
+              <label for='stations'>
+                <strong>台站</strong>
+              </label>
+            </td>
+            <td>
+              <select id='stations' name='stations'>
+                <option selected="selected" value='Abisko'>Abisko</option>
               </select>
             </td>
           </tr>
           <tr>
             <td class="background-light">
-              <label for='mag'>
+              <label for='term'>
                 <strong>磁分量</strong>
               </label>
             </td>
             <td>
-              <select id='mag' name='mag'>
-                <option selected="selected" value='minute'>X</option>
-                <option value='second'>Y</option>
-                <option value='second'>Z</option>
-                <option value='second'>F</option>
+              <select id='term' name='term'>
+                <option selected="selected" value='X'>X</option>
+                <option value='Y'>Y</option>
+                <option value='Z'>Z</option>
+                <option value='F'>F</option>
               </select>
             </td>
           </tr>
           <tr>
             <td class="background-light">
-              <label for='data type'>
+              <label for='sample_rate'>
+                <strong>抽样率</strong>
+              </label>
+            </td>
+            <td>
+              <select id='sample_rate' name='sample_rate'>
+                <option selected="selected" value='min'>min</option>
+                <option value='sec'>sec</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="background-light">
+              <label for='data_type'>
                 <strong>数据类型</strong>
               </label>
             </td>
             <td>
-              <select id='data type' name='data type'>
+              <select id='data_type' name='data_type'>
                 <option selected="selected" value='best'>best available of all types</option>
                 <option value='variation'>variation</option>
                 <option value='provisional'>provisional</option>
@@ -69,66 +101,20 @@
               <label for='start_time'>
                 <strong>开始时间</strong>
               </label>
-            </td>
-            <td>
-              <select id='date' name="YYYY" onchange="YYYYMM(this.value)">
-              <option value="year">年</option>
-            </select> 
-            
-             <select id='date' name="MM" onchange="MMDD(this.value)">
-              <option value="month">月</option>
-            </select> 
-            
-             <select id='date' name="DD" onchange="DDHH(this.value)">
-              <option value="day">日</option>
-            </select>
-            
-             <select id='date' name="HH" onchange="HHMM(this.value)">
-              <option value="hour">时</option>
-            </select>
-            
-             <select id='date' name="MI" onchange="MMII(this.value)">
-              <option value="minute">分</option>
-            </select>
-            
-             <select id='date' name="SS" onchange="SSEE(this.value)">
-              <option value="second">秒</option>
-            </select>
-            </td>
-          </tr>
-          <tr>
-            <td class="background-light">
+              </br>
               <label for='end_time'>
                 <strong>结束时间</strong>
               </label>
             </td>
-            <td>
-             <select id='date' name="YYYY1" onchange="YYYYMM1(this.value)">
-              <option value="year">年</option>
-              </select>
-              
-             <select id='date' name="MM1" onchange="MMDD1(this.value)">
-              <option value="month">月</option>
-            </select> 
-            
-             <select id='date' name="DD1" onchange="DDHH1(this.value)">
-              <option value="day">日</option>
-            </select>  
-            
-             <select id='date' name="HH1" onchange="HHMM1(this.value)">
-              <option value="hour">时</option>
-            </select>   
-            
-             <select id='date' name="MI1" onchange="MMII1(this.value)">
-              <option value="minute">分</option>
-            </select>
-            
-            <select id='date' name="SS1" onchange="SSEE1(this.value)">
-              <option value="second">秒</option>
-            </select>
-            </td>
+            <td id="Timeselection">
+                <input type="text" class="date start" id="starttime"autocomplete="off"/>
+                <input type="text" class="time start" autocomplete="off"/>
+                </br></br>
+                <input type="text" class="date end" autocomplete="off"/>
+                <input type="text" class="time end" autocomplete="off"/>
+            </td><script type="text/javascript" src="js/select.js"></script>
           </tr>
-          
+
           <tr>
             <td></td>
             <td>
@@ -166,66 +152,6 @@
                   <div class="datalist-1">
                     <h3>数据</h3>
                     <p>345 ipsum dolor sit amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada
-                    lorem. Nullam faucibus lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum
-                    velit. Phasellus porta enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed
-                    sed eros. Aenean vitae mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque. 21sit
-                    amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus
-                    lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta
-                    enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae
-                    mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque. 21sit amet, consectetur
-                    adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros
-                    consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at
-                    facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris
-                    tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque.21sit amet, consectetur adipiscing elit.
-                    Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros consectetur lobortis.
-                    Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at facilisis condimentum.
-                    Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris tincidunt, imperdiet
-                    orci semper, rhoncus ligula. Vivamus scelerisque.
-                    lorem. Nullam faucibus lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum
-                    velit. Phasellus porta enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed
-                    sed eros. Aenean vitae mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque. 21sit
-                    amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus
-                    lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta
-                    enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae
-                    mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque. 21sit amet, consectetur
-                    adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros
-                    consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at
-                    facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris
-                    tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque.21sit amet, consectetur adipiscing elit.
-                    Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros consectetur lobortis.
-                    Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at facilisis condimentum.
-                    Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris tincidunt, imperdiet
-                    orci semper, rhoncus ligula. Vivamus scelerisque.
-                    lorem. Nullam faucibus lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum
-                    velit. Phasellus porta enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed
-                    sed eros. Aenean vitae mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque. 21sit
-                    amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus
-                    lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta
-                    enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae
-                    mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque. 21sit amet, consectetur
-                    adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros
-                    consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at
-                    facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris
-                    tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque.21sit amet, consectetur adipiscing elit.
-                    Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros consectetur lobortis.
-                    Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at facilisis condimentum.
-                    Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris tincidunt, imperdiet
-                    orci semper, rhoncus ligula. Vivamus scelerisque.
-                    lorem. Nullam faucibus lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum
-                    velit. Phasellus porta enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed
-                    sed eros. Aenean vitae mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque. 21sit
-                    amet, consectetur adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus
-                    lorem at eros consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta
-                    enim at facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae
-                    mauris tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque. 21sit amet, consectetur
-                    adipiscing elit. Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros
-                    consectetur lobortis. Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at
-                    facilisis condimentum. Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris
-                    tincidunt, imperdiet orci semper, rhoncus ligula. Vivamus scelerisque.21sit amet, consectetur adipiscing elit.
-                    Cras nec urna aliquam, ornare eros vel, malesuada lorem. Nullam faucibus lorem at eros consectetur lobortis.
-                    Maecenas nec nibh congue, placerat sem id, rutrum velit. Phasellus porta enim at facilisis condimentum.
-                    Maecenas pharetra dolor vel elit tempor pellentesque sed sed eros. Aenean vitae mauris tincidunt, imperdiet
-                    orci semper, rhoncus ligula. Vivamus scelerisque.
                     </p>
                   </div>
                 </div>
