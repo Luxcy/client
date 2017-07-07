@@ -95,3 +95,17 @@ th, td {
     height:60px;
     margin-bottom:10px;
 }
+.Slect_stations{
+    line-height:20px;
+    font-size: 12px;
+    z-index:999;
+    width: 500px;
+    height: 220px;
+    left:20%;
+    top:20%;
+    margin-left:-150px!important;/*FF IE7 ????????? */
+    margin-top:-60px!important;/*FF IE7 ?????????*/
+    margin-top:0px;
+    position:fixed!important;/* FF IE7*/
+    position:absolute;/*IE6*/
+}
