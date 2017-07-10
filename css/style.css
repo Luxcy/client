@@ -109,3 +109,9 @@ th, td {
     position:fixed!important;/* FF IE7*/
     position:absolute;/*IE6*/
 }
+.date-mid-1{
+    display:inline;
+}
+.container{
+    display:inline;
+}
