@@ -24,18 +24,18 @@
   </head>
   <body>
     <!-- select stations -->
-      <div id="popSta" class="Slect_stations" style="display:none;"> 
-   <div align="right" style="padding:2px;z-index:2000;font-size:12px;cursor:pointer;position:absolute;right:0;" onclick="closeDivFun()"> 
-    <span style="border:1px solid #000;width:12px;height:12px;line-height:12px;text-align:center;display:block;background-color:#FFFFFF;left:-20px;">&times;</span> 
-   </div> 
-   <div id="select_stations" style="width: 800px; height: 600px;"></div> 
-  </div> 
+    <div id="popSta" class="Slect_stations" style="display:none;">
+    <div class="sta_content">
+    <span class="close" onclick="closeDivFun()">&times;</span>
+    <div id="select_stations"></div> 
+    </div>
+    </div> 
     <!-- top of the paper -->
     <div class="mtop-1">
       <p>date visualization</p>
     </div>
     <!-- select of the paper -->
-    <div class="date-mid-1">
+    <div class="date-mid-1" style=" float:left">
         <table class="span-6">
           <tr>
             <td class="background-light">
@@ -46,7 +46,7 @@
             <td>
               <select id='graph' name='graph' onchange="Station_display(this.value)" autocomplete="off">
                 <option selected="selected" value='contour'>contour</option>
-                <option value='scatter'>scatter</option>
+                <option value='line'>line</option>
               </select>
             </td>
           </tr>
@@ -57,7 +57,7 @@
               </label>
             </td>
             <td>
-              <input id="stations" type="text" name="stations" value=" " disabled="disabled" /> 
+              <input id="stations" type="text" name="stations" value=" " disabled="disabled"/> 
                 <a id="select_sta" href="javascript:;" onclick="showDivFun()"><img border="0" src="stations.gif" /></a>
                 <script src="js/select_stations.js" type="text/javascript"></script> 
             </td>
@@ -133,69 +133,63 @@
         </table>
     </div>
     <!-- graph and date of the paper -->
-    <div class="demo">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-offset-2 col-md-8">
-            <div class="tab" role="tabpanel">
-              <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active">
-                  <a href="#Section1" aria-controls="home" role="tab" data-toggle="tab">图形</a>
-                </li>
-                <li role="presentation">
-                  <a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">数据</a>
-                </li>
-              </ul>
-              <div class="tab-content tabs">
-                <!-- graph  absent-->
-                <div role="tabpanel" class="tab-pane fade in active" id="Section1">
+    <div class="col-md-offset-2 col-md-8" id="date-mid-2">
+      <div class="tab" role="tabpanel">
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active">
+            <a href="#Section1" aria-controls="home" role="tab" data-toggle="tab">图形</a>
+          </li>
+          <li role="presentation">
+            <a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">数据</a>
+          </li>
+        </ul>
+        <div class="tab-content tabs">
+          <!-- graph  absent-->
+          <div role="tabpanel" class="tab-pane fade in active" id="Section1">
+          
+          </div>
+          <!-- data list absent-->
+          <div role="tabpanel" class="tab-pane fade" id="Section2">
+            <div class="datalist-1">
+              <table id="contour_table" class="cell-border" cellspacing="0" width="100%" style="display:none;"> 
+                 <thead> 
+                  <tr> 
+                   <th>台站(IAGA CODE)</th> 
+                   <th>经度</th> 
+                   <th>纬度</th> 
+                   <th class="term_name">磁分量</th> 
+                  </tr> 
+                 </thead> 
+                 <tfoot> 
+                  <tr> 
+                   <th>台站(IAGA CODE)</th> 
+                   <th>经度</th> 
+                   <th>纬度</th> 
+                   <th class="term_name">磁分量</th> 
+                  </tr> 
+                 </tfoot> 
+                 <tbody id="table1"></tbody> 
+              </table> 
                 
-                </div>
-                <!-- data list absent-->
-                <div role="tabpanel" class="tab-pane fade" id="Section2">
-                  <div class="datalist-1">
-                    <table id="contour_table" class="cell-border" cellspacing="0" width="100%" style="display:none;"> 
-                       <thead> 
-                        <tr> 
-                         <th>台站</th> 
-                         <th>经度</th> 
-                         <th>纬度</th> 
-                         <th>磁分量</th> 
-                        </tr> 
-                       </thead> 
-                       <tfoot> 
-                        <tr> 
-                         <th>台站</th> 
-                         <th>经度</th> 
-                         <th>纬度</th> 
-                         <th>磁分量</th> 
-                        </tr> 
-                       </tfoot> 
-                       <tbody id="table1"></tbody> 
-                    </table> 
-                      
-                    <table id="scatter_table" class="cell-border" cellspacing="0" width="100%" style="display:none;"> 
-                       <thead> 
-                        <tr> 
-                         <th>时间</th> 
-                         <th>磁分量</th> 
-                        </tr> 
-                       </thead> 
-                       <tfoot> 
-                        <tr> 
-                         <th>时间</th> 
-                         <th>磁分量</th> 
-                        </tr> 
-                       </tfoot> 
-                       <tbody id="table2"></tbody> 
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <script src="js/plot.js" type="text/javascript"></script>
+              <table id="line_table" class="cell-border" cellspacing="0" width="100%" style="display:none;"> 
+                 <thead> 
+                  <tr> 
+                   <th>时间</th> 
+                   <th class="term_name">磁分量</th> 
+                  </tr> 
+                 </thead> 
+                 <tfoot> 
+                  <tr> 
+                   <th>时间</th> 
+                   <th class="term_name">磁分量</th> 
+                  </tr> 
+                 </tfoot> 
+                 <tbody id="table2"></tbody> 
+              </table>
             </div>
           </div>
         </div>
+        <script src="js/plot.js" type="text/javascript"></script>
       </div>
     </div>
   </body>

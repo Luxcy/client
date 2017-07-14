@@ -10,7 +10,7 @@ $(document).ready(function(){
         var name_code=[];
         $.ajax({ 
             type: "GET",
-            url: "http://192.168.95.4:5000/stations",
+            url: "http://192.168.95.7:5000/stations",
             dataType: "JSON",
             async:false,
             success: function(data) {
@@ -42,6 +42,7 @@ $(document).ready(function(){
             },
             hoverinfo:"none",
             type: 'scatter',
+            showlegend:false,
         };
         trace2={
             x:longitude,
@@ -52,16 +53,15 @@ $(document).ready(function(){
             marker:{
                 size:3,
                 color:colors
-            }
+            },
+            showlegend:false,
         };
 
         data = [trace1,trace2];
         layout = {
             hovermode:'closest',
-            title:'select station'
          };
-
-        Plotly.newPlot('select_stations', data, layout);
+        Plotly.newPlot('select_stations', data,layout,{displayModeBar: false});
         var flag = 0;
         myPlot.on('plotly_click', function(data){
           var pn='',
