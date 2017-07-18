@@ -5,7 +5,6 @@ function Station_display(str)
    else 
        document.getElementById("table_stations").style.display="";
 }
-
 function showDivFun(){
     document.getElementById('popSta').style.display='block';
 }

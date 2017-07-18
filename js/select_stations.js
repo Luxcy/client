@@ -10,9 +10,13 @@ $(document).ready(function(){
         var name_code=[];
         $.ajax({ 
             type: "GET",
-            url: "http://192.168.95.7:5000/stations",
+            url: "http://192.168.95.11:5000/stations",
             dataType: "JSON",
             async:false,
+            beforeSend: function(request) {
+            token = window.sessionStorage.getItem('token');
+            request.setRequestHeader("Authorization", token);
+        },
             success: function(data) {
               cnt = data.count;
               stations = data.stations;

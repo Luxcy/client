@@ -3,8 +3,8 @@ $(document).ready(function(){
     var v=t.getFullYear()+"-"+(t.getMonth()+1)+"-"+t.getDate();
     $("#starttime1").val(v);
     $("#endtime1").val(v);*/
-    $("#starttime1").val("2010-2-2");
-    $("#endtime1").val("2010-2-16");
+    $("#starttime1").val("2010-1-2");
+    $("#endtime1").val("2010-4-16");
     $('#Timeselection .time').timepicker({
         'timeFormat': 'g:i:s',
         'step':15

@@ -5,6 +5,7 @@ body{
     background:#fff;
     margin: 0;
     padding: 0;
+    color: #5e5e5e;
 }
 a{color: #2fa0ec;outline: none;text-decoration: none;}
 a:hover,a:focus{color:#74777b;text-decoration: none;}
@@ -153,4 +154,95 @@ th, td {
     text-decoration: none;
     cursor: pointer;
 }
+.header-unlogin li {
+	float: left
+}
+.header-signin a,.header-signup a,.header-logout a{
+	display: block;
+	width: 60px;
+	font-size: 14px;
+	text-align: center;
+	height: 60px;
+	line-height: 60px;
+	color: #787d82;
+	transition: background-color .2s
+}
+.header-signin a:hover {
+	color: #fff;
+	background-color: #ec1500
+}
+.header-signup a:hover {
+	color: #fff;
+	background-color: rgba(77,85,93,.4)
+}
+ul{
+    margin: 0;
+    padding: 0;
+    list-style:none; 
+}
+.signin{
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 115%; 
+    height: 100%;
+    background-color: rgba(0,0,0,0.4); 
+}
+.rl-modal-header{
+    background-color: #fefefe;
+    margin: 10% auto; 
+    padding: 20px;
+    border: 1px solid #aaa;
+    width: 360px; 
+}
+.rl-modal-header {
+    position: relative;
+    padding: 0 20px;
+}
+a, button, input {
+    outline: 0;
+}
+.rl-modal-header h1 span {
+    float: left;
+    width: 80px;
+    text-align: center;
+    height: 49px;
+    line-height: 49px;
+    cursor: pointer;
+}
+.rl-modal-header h1 {
+    font-size: 16px;
+    line-height: 49px;
+    height: 49px;
+    color: #787d82;
+    border-bottom: 1px solid #d0d6d9;
+    font-weight: 400;
+}
+.ipt{
+    text-rendering: auto;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    margin: 0em;
+    font: 15px Arial;
+    width:300px;
+    border-radius:0px;
+}
+.hover1{
+    border-bottom: 1px solid #f01400;
+    color: #f01400;
+}
+.signin{
+        border-bottom: 1px solid #f01400;
+    color: #f01400;
+}
+
+
+
 

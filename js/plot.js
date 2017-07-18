@@ -10,29 +10,41 @@ function contour(){
     var cnt,cnd;
     $.ajax({ 
         type: "GET",
-        url: "http://192.168.95.7:5000/stations",
+        url: "http://192.168.95.11:5000/stations",
         dataType: "JSON",
         async:false,
+        beforeSend:function(request) {
+            token = window.sessionStorage.getItem('token');
+            request.setRequestHeader("Authorization", token);
+        },
         success: function(data) {
+            console.log("stations1="+data.stations[0]["Station Name"]);
+            console.log("stations2="+data);
             cnt=data.count;
             stations=data.stations;
         },
-        error: function(jqXHR){
-            alert("发生错误：" + jqXHR.status);  
-        },     
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                var result = eval("("+XMLHttpRequest.responseText+")");
+                       console.log(result.message);
+                    },
     });
     $.ajax({ 
         type: "GET",
-        url: "http://192.168.95.7:5000/data?"
+        url: "http://192.168.95.11:5000/data?"
              +"sample_rate="+$("#sample_rate").val()+"&term="+$("#term").val()
              +"&data_type="+$("#data_type").val()[0]
              +"&start_time="+$("#starttime1").val()+" "+$("#starttime2").val()
              +"&end_time="+$("#endtime1").val()+" "+$("#endtime2").val(),
         dataType: "JSON",
         async:false,
+        beforeSend: function(request) {
+            token = window.sessionStorage.getItem('token');
+            request.setRequestHeader("Authorization", token);
+        },
         success: function(data) {
             cnd=data.count;
             datas=data.data;
+            console.log("data="+data);
         },
         error: function(jqXHR){
             alert("发生错误：" + jqXHR.status);  
@@ -54,9 +66,6 @@ function contour(){
         }
     }
     var tr = $("#term").val();
-    console.log($("#term_name").html());
-    console.log("磁分量"+tr);
-    console.log($("#term_name").html());
     station_name=datas.map(function(v){return v["Station Name"];});
     longitude=datas.map(function(v){return v["Geodetic Longitude"]-180;});
     latitude=datas.map(function(v){return v["Geodetic Latitude"];});
@@ -107,6 +116,31 @@ function contour(){
     };
     Plotly.newPlot('Section1', data,layout,{displayModeBar: false});
     //=========================================================================
+    $('#contour_table').html("");
+    var html1='<thead>'
+                +'<tr>'
+                +'<th>台站(IAGA CODE)</th>'
+                +'<th>经度</th>'
+                +'<th>纬度</th>'
+                +'<th class="term_name">磁分量</th>'
+                +'</tr>'
+                +'</thead>'
+                +'<tfoot>'
+                +'<tr>'
+                +'<th>台站(IAGA CODE)</th>'
+                +'<th>经度</th>'
+                +'<th>纬度</th>'
+                +'<th class="term_name">磁分量</th>'
+                +'</tr> '
+                +'</tfoot> '
+                +'<tbody id="table1">'
+                +'</tbody> ';
+                obj = document.getElementById("contour_table_wrapper");
+        if(obj){
+            $('#contour_table').dataTable().fnDestroy();
+        }
+    
+    $('#contour_table').html(html1);
     $('#table1').html("");
     document.getElementById("contour_table").style.display="";
     var html='';
@@ -145,7 +179,7 @@ function line(){
     var x=[];
     var y=[];
     $.ajax({
-        url: "http://192.168.95.7:5000/data?"
+        url: "http://192.168.95.11:5000/data?"
          +"stations="+$("#stations").val()
          +"&sample_rate="+$("#sample_rate").val()+"&term="+$("#term").val()
          +"&data_type="+$("#data_type").val()[0]
@@ -154,21 +188,26 @@ function line(){
         type: "GET",
         dataType: "JSON", 
         async: false,
+        beforeSend: function(request) {
+            token = window.sessionStorage.getItem('token');
+            request.setRequestHeader("Authorization", token);
+        },
         success:function(data){
             $.each(data.data,function(i,info){
                 var x1=format(info["time_stamp"]*1000);
                 x.push(x1);
                 y.push(info[$("#term").val()]);
-            })
+            });
+            if(x.length==0) {
+                alert("暂无数据");
+                return;
+            }
         },
-        error:function(){
-            alert("error");
-        }
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                var result = eval("("+XMLHttpRequest.responseText+")");
+                       console.log(result.message);
+                    },
     });
-    if(x.length==0) {
-        alert("暂无数据");
-        return;
-    }
    //=========================================================================
     var data= [{x: x,y: y }];
     var layout={
@@ -185,8 +224,27 @@ function line(){
     };
     Plotly.newPlot(TESTER, data,layout,{displayModeBar: false});
    //=========================================================================
-   document.getElementById("line_table").style.display="";
-    $('#table2').html("");
+   $('#contour_table').html("");
+   var html2='<thead>' 
+                  +'<tr>'
+                   +'<th>时间</th>' 
+                   +'<th class="term_name">磁分量</th> '
+                  +'</tr> '
+                 +'</thead> '
+                 +'<tfoot> '
+                  +'<tr> '
+                   +'<th>时间</th> '
+                   +'<th class="term_name">磁分量</th> '
+                  +'</tr> '
+                 +'</tfoot>';
+    //$('#contour_table').DataTable({});
+    obj = document.getElementById("contour_table_wrapper");
+        if(obj){
+            $('#contour_table').dataTable().fnDestroy();
+        }
+    $('#contour_table').html(html2);
+   document.getElementById("contour_table").style.display="";
+    $('#table1').html("");
     var html='';
     for(var i=0;i<x.length;i++){
         html+='<tr>'
@@ -194,11 +252,11 @@ function line(){
             +'<td>'+y[i]+'</td>'
             +'</tr>';
     }
-    $('#table2').html(html);
+    $('#table1').html(html);
     var z=[];
     for(var i=0;i<x.length;i++)
         z.push([x[i],y[i]]);
-    $('#line_table').DataTable({
+    $('#contour_table').DataTable({
         "data": z,
         "searching":false,
         "destroy":true
@@ -208,7 +266,8 @@ function line(){
 $(document).ready(function(){
     $("#search").click(function(){
         document.getElementById("contour_table").style.display="none";
-        document.getElementById("line_table").style.display="none";
+        //document.getElementById("line_table").style.display="none";
+        
         if($("#graph").val()=="contour")
             contour();
         else 
@@ -216,4 +275,3 @@ $(document).ready(function(){
     });
 });
 
-//    <script src="js/plot.js" type="text/javascript"></script>
